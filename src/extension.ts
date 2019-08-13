@@ -13,7 +13,7 @@ import { kuksaYaml } from './kuksaYaml';
 
 
 export function activate(context: ExtensionContext) {
-	context.subscriptions.push(commands.registerCommand('helloKuksa', async () => {
+	context.subscriptions.push(commands.registerCommand('Kuksa', async () => {
 		const options: { [key: string]: (context: ExtensionContext) => Promise<void> } = {
 			//showQuickPick,
 			//showInputBox,

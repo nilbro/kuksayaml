@@ -17,7 +17,7 @@ const vscode_1 = require("vscode");
 const kuksaYaml_1 = require("./kuksaYaml");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
-    context.subscriptions.push(vscode_1.commands.registerCommand('helloKuksa', () => __awaiter(this, void 0, void 0, function* () {
+    context.subscriptions.push(vscode_1.commands.registerCommand('Kuksa', () => __awaiter(this, void 0, void 0, function* () {
         const options = {
             //showQuickPick,
             //showInputBox,
