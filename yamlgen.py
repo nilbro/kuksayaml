@@ -1,7 +1,6 @@
 import yaml
 import os
 
-print("In yamlgen.py")
 
 with open('temp.txt', 'r') as f:
     inputList = [line.strip() for line in f]
