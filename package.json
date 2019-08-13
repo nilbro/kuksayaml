@@ -1,57 +1,67 @@
 {
-	"name": "kuksa",
-	"displayName": "Kuksa",
-	"description": "",
-	"publisher": "appstacle-kuksa",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.36.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"menus": {
-			"editor/title": [
-				{
-					"command": "Kuksa"
-				}
-			]
-		},
-		"commands": [
-			{
-				"command": "Kuksa",
-				"title": "Kuksa",
-				"icon": {
-					"light": "kuksa_icon.png",
-					"dark": "kuksa_icon.png"
-				}
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.6",
-		"@types/node": "^10.12.21",
-		"@types/vscode": "^1.36.0",
-		"glob": "^7.1.4",
-		"mocha": "^6.1.4",
-		"typescript": "^3.3.1",
-		"tslint": "^5.12.1",
-		"vscode-test": "^1.0.0-next.0"
-	},
-	"dependencies": {
-		"python-shell": "^1.0.8"
-	}
+  "name": "kuksa",
+  "displayName": "Kuksa",
+  "description": "Kuksa Yaml Generator",
+  "publisher": "appstacle-kuksa",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.36.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "menus": {
+      "editor/title": [
+        {
+          "command": "Kuksa"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "Kuksa",
+        "title": "Kuksa",
+        "icon": {
+          "light": "kuksa_icon.png",
+          "dark": "kuksa_icon.png"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.12.21",
+    "@types/vscode": "^1.36.0",
+    "glob": "^7.1.4",
+    "mocha": "^6.1.4",
+    "typescript": "^3.3.1",
+    "tslint": "^5.12.1",
+    "vscode-test": "^1.0.0-next.0"
+  },
+  "dependencies": {
+    "python-shell": "^1.0.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilbro/kuksayaml.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nilbro/kuksayaml/issues"
+  },
+  "homepage": "https://github.com/nilbro/kuksayaml#readme"
 }
