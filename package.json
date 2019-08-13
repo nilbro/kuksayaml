@@ -52,13 +52,17 @@
     "vscode-test": "^1.0.0-next.0"
   },
   "dependencies": {
-    "python-shell": "^1.0.8"
+    "python-shell": "^1.0.8",
+    "vscode": "^1.1.36"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nilbro/kuksayaml.git"
   },
-  "author": "",
+  "keywords": [
+    "kuksa"
+  ],
+  "author": "nilabhra",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nilbro/kuksayaml/issues"

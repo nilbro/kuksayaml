@@ -25,7 +25,7 @@ function activate(context) {
         };
         const quickPick = vscode_1.window.createQuickPick();
         quickPick.items = Object.keys(options).map(label => ({ label }));
-        quickPick.onDidChangeSelection(selection => {
+        quickPick.onDidChangeSelection((selection) => {
             if (selection[0]) {
                 options[selection[0].label](context)
                     .catch(console.error);
