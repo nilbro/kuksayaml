@@ -214,14 +214,18 @@ export async function appConfigGenerator(context: ExtensionContext) {
 
 	
 	async function yamlGenerator(){	
-       // window.showInformationMessage('Creating YAML file');
-        const execLocation = context.asAbsolutePath("yamlgen.py");
-		const cp = require('child_process');
-		const {PythonShell} = require('python-shell');
 
-	PythonShell.run(execLocation, null, function (err: any, res: any[]) {
-  		if (err) { throw err; }
-  		console.log(res[0]);  // 1
+		var extensionModule = require('./extension');
+		const projectName = extensionModule.projectName;
+        const execLocation = context.asAbsolutePath("yamlgen.py");
+		const {PythonShell} = require('python-shell');
+		let options = {
+			args:[projectName]
+		};
+		PythonShell.run(execLocation, options, function (err: any, res: any[]) {
+			window.showInformationMessage('here');
+  			if (err) { throw err; }
+  			console.log(res[0]);  // 1
 		});
 	}
 

@@ -1,12 +1,13 @@
 import yaml
 import os
-
+import sys
 
 with open('temp.txt', 'r') as f:
     inputList = [line.strip() for line in f]
 
-print(inputList)
+print('inputList')
 os.remove('temp.txt')
+print(sys.argv)
 
 dictDocker = {'image':inputList[0],
 'name':inputList[1],

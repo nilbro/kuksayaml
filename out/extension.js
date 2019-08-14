@@ -22,9 +22,11 @@ function activate(context) {
         const projectName = yield vscode_1.window.showInputBox({
             placeHolder: 'Enter Project Name'
         });
+        exports.projectName = projectName;
         shell.mkdir('-p', projectName + '/' + 'docker');
         shell.mkdir('-p', projectName + '/' + 'include');
         shell.mkdir('-p', projectName + '/' + 'src');
+        shell.touch(projectName + '/' + 'kuksa.yaml');
         const options = {
             //showQuickPick,
             //showInputBox,

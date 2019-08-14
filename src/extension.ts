@@ -19,9 +19,11 @@ export function activate(context: ExtensionContext) {
 		const projectName = await window.showInputBox({
 			placeHolder: 'Enter Project Name'
 		});
+		exports.projectName = projectName;
 		shell.mkdir('-p',projectName + '/' + 'docker');
 		shell.mkdir('-p',projectName + '/' + 'include');
 		shell.mkdir('-p',projectName + '/' + 'src');
+		shell.touch(projectName + '/' +'kuksa.yaml');
 		const options: { [key: string]: (context: ExtensionContext) => Promise<void> } = {
 			//showQuickPick,
 			//showInputBox,

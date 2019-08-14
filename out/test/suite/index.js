@@ -16,7 +16,7 @@ function run() {
                 return e(err);
             }
             // Add files to the test suite
-            files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
+            files.forEach((f) => mocha.addFile(path.resolve(testsRoot, f)));
             try {
                 // Run the mocha test
                 mocha.run(failures => {
