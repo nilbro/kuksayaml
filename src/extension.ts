@@ -15,11 +15,12 @@ import { appConfigGenerator } from './appConfigGenerator';
 export function activate(context: ExtensionContext) {
 
 	context.subscriptions.push(commands.registerCommand('Kuksa', async () => {
-		var shell = require('shelljs');
+		
 		const projectName = await window.showInputBox({
 			placeHolder: 'Enter Project Name'
 		});
 		exports.projectName = projectName;
+		var shell = require('shelljs');
 		shell.mkdir('-p',projectName + '/' + 'docker');
 		shell.mkdir('-p',projectName + '/' + 'include');
 		shell.mkdir('-p',projectName + '/' + 'src');
