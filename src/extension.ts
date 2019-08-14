@@ -13,7 +13,15 @@ import { appConfigGenerator } from './appConfigGenerator';
 
 
 export function activate(context: ExtensionContext) {
+
 	context.subscriptions.push(commands.registerCommand('Kuksa', async () => {
+		var shell = require('shelljs');
+		const projectName = await window.showInputBox({
+			placeHolder: 'Enter Project Name'
+		});
+		shell.mkdir('-p',projectName + '/' + 'docker');
+		shell.mkdir('-p',projectName + '/' + 'include');
+		shell.mkdir('-p',projectName + '/' + 'src');
 		const options: { [key: string]: (context: ExtensionContext) => Promise<void> } = {
 			//showQuickPick,
 			//showInputBox,

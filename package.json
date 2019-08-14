@@ -63,6 +63,8 @@
   "bugs": {
     "url": "https://github.com/nilbro/kuksayaml/issues"
   },
-  "homepage": "https://github.com/nilbro/kuksayaml#readme"
+  "homepage": "https://github.com/nilbro/kuksayaml#readme",
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  }
 }
-
