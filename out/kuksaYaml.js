@@ -226,85 +226,8 @@ function kuksaYaml(context) {
                     }
                     console.log(res[0]); // 1
                 });
-                //let command: string = 'python /home/bro/Documents/nilbro/Appstacle/vscode-extension-samples/quickinput-sample/src/yamlgen.py';
-                //let command: string = "require('path').resolve(require('path').dirname(require.main.filename)";
-                /*cp.exec('python ' + execLocation, (err: any, stdout: any, stderr: any) => {
-                    window.showInformationMessage('Creating YAML file');
-                    console.log(stdout);
-                });*/
-                // const fs =require('fs');
-                //const vscodeExecutablePath = await downloadAndUnzipVSCode('1.34.0');
-                //console.log(path.resolve(vscodeExecutablePath);
-                //fs.readFile(require('path').resolve(require('path').dirname(require.main.filename), 'yamlgen.py'));
             });
         }
-        /*	async function chooseYamlType(input: MultiStepInput, state: Partial<State>) {
-                await input.showQuickPick({
-                    title,
-                    step: 2,
-                    totalSteps: 5,
-                    placeholder: 'Which type of Pod controller mechanism whould you like to use?',
-                    items: yamlType,
-                    activeItem: typeof state.resourceGroup !== 'string' ? state.resourceGroup : undefined,
-                    //buttons: [createResourceGroupButton],
-                    shouldResume: shouldResume
-                });/*
-                if (pick instanceof MyButton) {
-                    return (input: MultiStepInput) => inputResourceGroupName(input, state);
-                }
-                state.resourceGroup = pick;
-                return (input: MultiStepInput) => inputVersion(input, state);
-            }
-        
-        
-        /*
-            async function inputReplicaNumber(input: MultiStepInput, state: Partial<State>) {
-                //const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
-                // TODO: Remember current value when navigating back.
-                state.name = await input.showInputBox({
-                    title,
-                    step: 4,
-                    totalSteps: 5 ,
-                    value: state.name || '',
-                    //write: writeToExternal,
-                    prompt: 'Input number of replicas',
-                    validate: validateNameIsUnique,
-                    shouldResume: shouldResume
-                });
-                return (input: MultiStepInput) => inputImage(input, state);
-            }
-        
-        
-            async function inputImage(input: MultiStepInput, state: Partial<State>) {
-                //const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
-                // TODO: Remember current value when navigating back.
-                state.name = await input.showInputBox({
-                    title,
-                    step: 5,
-                    totalSteps: 5 ,
-                    value: state.name || '',
-                    prompt: 'Input image',
-                    //write: writeToExternal,
-                    validate: validateNameIsUnique,
-                    shouldResume: shouldResume
-                });
-                //return (input: MultiStepInput) => pickRuntime(input, state);
-            }
-        /*
-            async function pickRuntime(input: MultiStepInput, state: Partial<State>) {
-                const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
-                const runtimes = await getAvailableRuntimes(state.resourceGroup!, undefined );
-                // TODO: Remember currently active item when navigating back.
-                state.runtime = await input.showQuickPick({
-                    title,
-                    step: 5 + additionalSteps,
-                    totalSteps: 5 + additionalSteps,
-                    placeholder: 'Pick a runtime',
-                    items: runtimes,
-                    activeItem: state.runtime,
-                    shouldResume: shouldResume
-                });
-            }*/
         function shouldResume() {
             // Could show a notification with the option to resume.
             return new Promise((resolve, reject) => {
@@ -317,26 +240,7 @@ function kuksaYaml(context) {
                 return name === 'vscode' ? 'Name not unique' : undefined;
             });
         }
-        /*
-            function writeToExternal(name: string) {
-                // ...write...
-                var fs = require('fs');
-                fs.writeFile("temp.txt", name, (err: any) => {
-                    if (err) { console.log(err); }
-                    console.log("Successfully Written to File.");
-                  });
-                return;
-            }*/
-        /*
-            async function getAvailableRuntimes(resourceGroup: QuickPickItem | string, token?: CancellationToken): Promise<QuickPickItem[]> {
-                // ...retrieve...
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                return ['Node 8.9', 'Node 6.11', 'Node 4.5']
-                    .map(label => ({ label }));
-            }
-        */
         const state = yield collectInputs();
-        //window.showInformationMessage(`Creating YAML File'${state.name}.yaml'`);
     });
 }
 exports.kuksaYaml = kuksaYaml;

@@ -13,7 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
-//import { showQuickPick, showInputBox } from './basicInput';
+const dockerBuild_1 = require("./dockerBuild");
 const kuksaYaml_1 = require("./kuksaYaml");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
@@ -22,6 +22,8 @@ function activate(context) {
             //showQuickPick,
             //showInputBox,
             kuksaYaml: kuksaYaml_1.kuksaYaml,
+            dockerBuild: dockerBuild_1.dockerBuild
+            //quickOpen,
         };
         const quickPick = vscode_1.window.createQuickPick();
         quickPick.items = Object.keys(options).map(label => ({ label }));

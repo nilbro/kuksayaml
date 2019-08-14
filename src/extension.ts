@@ -7,7 +7,7 @@
 
 
 import { window, commands, ExtensionContext } from 'vscode';
-//import { showQuickPick, showInputBox } from './basicInput';
+import { dockerBuild } from './dockerBuild';
 import { kuksaYaml } from './kuksaYaml';
 //import { quickOpen } from './quickOpen';
 
@@ -18,6 +18,7 @@ export function activate(context: ExtensionContext) {
 			//showQuickPick,
 			//showInputBox,
 			kuksaYaml,
+			dockerBuild
 			//quickOpen,
 		};
 		const quickPick = window.createQuickPick();
