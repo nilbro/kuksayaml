@@ -1,3 +1,3 @@
 out
 node_modules
-*.vsix
+/kuksa-0.0.1.vsix
