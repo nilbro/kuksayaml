@@ -5,9 +5,9 @@ import sys
 with open('temp.txt', 'r') as f:
     inputList = [line.strip() for line in f]
 
-print('inputList')
+
 os.remove('temp.txt')
-print(sys.argv)
+print(str(sys.argv))
 
 dictDocker = {'image':inputList[0],
 'name':inputList[1],
@@ -29,5 +29,5 @@ dictHawkbit = {'url':'http://hawkbit-appstacle.westeurope.cloudapp.azure.com:808
 kuksa = [{'Docker':dictDocker},{'AppStore':dictAppStore},{'Hawkbit':dictHawkbit}]
 
 
-with open('kuksa.yaml', 'w') as f:
+with open(str(sys.argv[1])+'/kuksa.yaml', 'w') as f:
     data = yaml.dump(kuksa,f)

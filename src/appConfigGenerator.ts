@@ -223,7 +223,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 			args:[projectName]
 		};
 		PythonShell.run(execLocation, options, function (err: any, res: any[]) {
-			window.showInformationMessage('here');
+			
   			if (err) { throw err; }
   			console.log(res[0]);  // 1
 		});
