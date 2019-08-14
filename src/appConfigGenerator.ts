@@ -12,7 +12,7 @@ import { QuickPickItem, window, Disposable, QuickInputButton, QuickInput, Extens
  * 
  * This first part uses the helper class `MultiStepInput` that wraps the API for the multi-step case.
  */
-export async function kuksaYaml(context: ExtensionContext) {
+export async function appConfigGenerator(context: ExtensionContext) {
 
 //	const yamlType: QuickPickItem[] = ['Deployment','Service']
 //		.map(label => ({ label }));
@@ -33,7 +33,7 @@ export async function kuksaYaml(context: ExtensionContext) {
 			return state as State;
 		}
 
-	const title = 'YAML Generator';
+	const title = 'App Configuration Generator';
 
 	//var fs = require('fs');
 

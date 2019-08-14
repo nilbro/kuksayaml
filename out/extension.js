@@ -13,16 +13,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
-const dockerBuild_1 = require("./dockerBuild");
-const kuksaYaml_1 = require("./kuksaYaml");
+const appGenerator_1 = require("./appGenerator");
+const appConfigGenerator_1 = require("./appConfigGenerator");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
     context.subscriptions.push(vscode_1.commands.registerCommand('Kuksa', () => __awaiter(this, void 0, void 0, function* () {
         const options = {
             //showQuickPick,
             //showInputBox,
-            kuksaYaml: kuksaYaml_1.kuksaYaml,
-            dockerBuild: dockerBuild_1.dockerBuild
+            appConfigGenerator: appConfigGenerator_1.appConfigGenerator,
+            appGenerator: appGenerator_1.appGenerator
             //quickOpen,
         };
         const quickPick = vscode_1.window.createQuickPick();
