@@ -16,15 +16,8 @@ export function activate(context: ExtensionContext) {
 
 	context.subscriptions.push(commands.registerCommand('Kuksa', async () => {
 		
-		const projectName = await window.showInputBox({
-			placeHolder: 'Enter Project Name'
-		});
-		exports.projectName = projectName;
-		var shell = require('shelljs');
-		shell.mkdir('-p',projectName + '/' + 'docker');
-		shell.mkdir('-p',projectName + '/' + 'include');
-		shell.mkdir('-p',projectName + '/' + 'src');
-		shell.touch(projectName + '/' +'kuksa.yaml');
+		//var projectList = [];
+		
 		const options: { [key: string]: (context: ExtensionContext) => Promise<void> } = {
 			//showQuickPick,
 			//showInputBox,

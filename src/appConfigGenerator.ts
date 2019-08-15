@@ -37,13 +37,26 @@ export async function appConfigGenerator(context: ExtensionContext) {
 
 	//var fs = require('fs');
 
-	
+	async function createTree(){
+		window.showInformationMessage('creating tree');
+		const projectName = await window.showInputBox({
+			placeHolder: 'Enter Project Name'
+		});
+		exports.projectName = projectName;
+		var shell = require('shelljs');
+		shell.mkdir('-p',projectName + '/' + 'docker');
+		shell.touch(projectName + '/' + 'docker'+'/'+'build.sh');
+		shell.mkdir('-p',projectName + '/' + 'include');
+		shell.mkdir('-p',projectName + '/' + 'src');
+		shell.touch(projectName + '/' +'kuksa.yaml');
+	}
 
 	async function inputImage(input: MultiStepInput, state: Partial<State>) {
 		//const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
 		// TODO: Remember current value when navigating back.
+		await createTree();
 		window.showInformationMessage('Starting with Docker Configuration');
-		//yamlGenerator();
+		yamlGenerator();
 		await input.showInputBox({
 			title,
 			step: 1 ,
@@ -226,7 +239,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 			
   			if (err) { throw err; }
   			console.log(res[0]);  // 1
-		});
+		}); 
 	}
 
 

@@ -18,15 +18,7 @@ const appConfigGenerator_1 = require("./appConfigGenerator");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
     context.subscriptions.push(vscode_1.commands.registerCommand('Kuksa', () => __awaiter(this, void 0, void 0, function* () {
-        const projectName = yield vscode_1.window.showInputBox({
-            placeHolder: 'Enter Project Name'
-        });
-        exports.projectName = projectName;
-        var shell = require('shelljs');
-        shell.mkdir('-p', projectName + '/' + 'docker');
-        shell.mkdir('-p', projectName + '/' + 'include');
-        shell.mkdir('-p', projectName + '/' + 'src');
-        shell.touch(projectName + '/' + 'kuksa.yaml');
+        //var projectList = [];
         const options = {
             //showQuickPick,
             //showInputBox,
