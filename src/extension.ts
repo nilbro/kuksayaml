@@ -22,13 +22,14 @@ export function activate(context: ExtensionContext) {
 			//showQuickPick,
 			//showInputBox,
 			appConfigGenerator,
-			appGenerator
+			appGenerator,
 			//quickOpen,
 		};
 		const quickPick = window.createQuickPick();
 		quickPick.items = Object.keys(options).map(label => ({ label }));
 		quickPick.onDidChangeSelection((selection: { label: string | number; }[]) => {
 			if (selection[0]) {
+				//window.showErrorMessage(selection[0].label.toString());
 				options[selection[0].label](context)
 					.catch(console.error);
 			}

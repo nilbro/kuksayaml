@@ -16,7 +16,7 @@ PROJECTPATH="$HOME/$PROJECTNAME"
 cp /usr/bin/qemu-arm-static $PROJECTPATH
 
 if [ "$?" != "0" ]; then
-    echo "Please install the qemu-user-static package" 1>&2
+    echo "Please install the qemu-user-static package" 
     exit 1
 fi
 

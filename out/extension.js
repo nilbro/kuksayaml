@@ -23,13 +23,13 @@ function activate(context) {
             //showQuickPick,
             //showInputBox,
             appConfigGenerator: appConfigGenerator_1.appConfigGenerator,
-            appGenerator: appGenerator_1.appGenerator
-            //quickOpen,
+            appGenerator: appGenerator_1.appGenerator,
         };
         const quickPick = vscode_1.window.createQuickPick();
         quickPick.items = Object.keys(options).map(label => ({ label }));
         quickPick.onDidChangeSelection((selection) => {
             if (selection[0]) {
+                //window.showErrorMessage(selection[0].label.toString());
                 options[selection[0].label](context)
                     .catch(console.error);
             }

@@ -37,20 +37,6 @@ export async function appConfigGenerator(context: ExtensionContext) {
 
 	//var fs = require('fs');
 
-	async function createTree(){
-		window.showInformationMessage('creating tree');
-		const projectName = await window.showInputBox({
-			placeHolder: 'Enter Project Name'
-		});
-		exports.projectName = projectName;
-		var shell = require('shelljs');
-		shell.mkdir('-p',projectName + '/' + 'docker');
-		shell.touch(projectName + '/' + 'docker'+'/'+'build.sh');
-		shell.mkdir('-p',projectName + '/' + 'include');
-		shell.mkdir('-p',projectName + '/' + 'src');
-		shell.touch(projectName + '/' +'kuksa.yaml');
-	}
-
 	async function inputImage(input: MultiStepInput, state: Partial<State>) {
 		//const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
 		// TODO: Remember current value when navigating back.
@@ -60,7 +46,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		await input.showInputBox({
 			title,
 			step: 1 ,
-			totalSteps: 5 ,
+			totalSteps: 10 ,
 			value: state.name || '',
 			prompt: 'Choose Docker Image',
 			validate: validateNameIsUnique,
@@ -76,8 +62,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		// TODO: Remember current value when navigating back.
 		await input.showInputBox({
 			title,
-			step: 1 ,
-			totalSteps: 5 ,
+			step: 2 ,
+			totalSteps: 10 ,
 			value: state.name || '',
 			prompt: 'Enter Name of Application',
 			validate: validateNameIsUnique,
@@ -94,7 +80,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		state.name = await input.showInputBox({
 			title,
 			step: 3 ,
-			totalSteps: 5,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Version',
 			//write: writeToExternal,
@@ -109,8 +95,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		// TODO: Remember current value when navigating back.
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 4 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Owner',
 			//write: writeToExternal,
@@ -125,8 +111,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		// TODO: Remember current value when navigating back.
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 5 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Give a short description',
 			//write: writeToExternal,
@@ -143,8 +129,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		window.showInformationMessage('Starting AppStore Configuration');
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 6 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Appstore Category',
 			//write: writeToExternal,
@@ -160,8 +146,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		// TODO: Remember current value when navigating back.
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 7 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Authorization Code',
 			//write: writeToExternal,
@@ -178,8 +164,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		window.showInformationMessage('Starting with Hawkbit Configuration');
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 8 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Appstore Target',
 			//write: writeToExternal,
@@ -195,8 +181,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		//window.showInformationMessage('Starting with Appstore Configuration');
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 9 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Username',
 			//write: writeToExternal,
@@ -212,8 +198,8 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		//window.showInformationMessage('Starting with Appstore Configuration');
 		state.name = await input.showInputBox({
 			title,
-			step: 3 ,
-			totalSteps: 5,
+			step: 10 ,
+			totalSteps: 10,
 			value: state.name || '',
 			prompt: 'Input Password',
 			//write: writeToExternal,
@@ -242,7 +228,21 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		}); 
 	}
 
-
+	async function createTree(){
+		window.showInformationMessage('creating tree');
+		const projectName = await window.showInputBox({
+			placeHolder: 'Enter Project Name'
+		});
+		exports.projectName = projectName;
+		var shell = require('shelljs');
+		shell.mkdir('-p',projectName + '/' + 'docker');
+		//shell.touch(projectName + '/' + 'docker'+'/'+'build.sh');
+		shell.mkdir('-p',projectName + '/' + 'include');
+		shell.mkdir('-p',projectName + '/' + 'src');
+		shell.touch(projectName + '/' +'kuksa.yaml');
+		shell.cp(context.asAbsolutePath("build.sh"),projectName + '/' + 'docker'+'/'+'build.sh');
+		shell.sed('-i','kuksa',projectName,projectName + '/' + 'docker'+'/'+'build.sh');
+	}
 
 	function shouldResume() {
 		// Could show a notification with the option to resume.
