@@ -233,7 +233,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		const projectName = await window.showInputBox({
 			placeHolder: 'Enter Project Name'
 		});
-		exports.projectName = projectName;
+		//exports.projectName = projectName;
 		var shell = require('shelljs');
 		shell.mkdir('-p',projectName + '/' + 'docker');
 		//shell.touch(projectName + '/' + 'docker'+'/'+'build.sh');
@@ -242,6 +242,10 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		shell.touch(projectName + '/' +'kuksa.yaml');
 		shell.cp(context.asAbsolutePath("build.sh"),projectName + '/' + 'docker'+'/'+'build.sh');
 		shell.sed('-i','kuksa',projectName,projectName + '/' + 'docker'+'/'+'build.sh');
+		
+
+
+
 	}
 
 	function shouldResume() {

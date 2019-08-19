@@ -65,6 +65,10 @@
   },
   "homepage": "https://github.com/nilbro/kuksayaml#readme",
   "dependencies": {
+    "file-dialog": "0.0.7",
+    "form-data": "^2.5.0",
+    "node-cmd": "^3.0.0",
+    "open-file-dialog": "^1.0.1",
     "python-shell": "^1.0.8",
     "shelljs": "^0.8.3"
   }
