@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const appGenerator_1 = require("./appGenerator");
 const appConfigGenerator_1 = require("./appConfigGenerator");
+const appPublisher_1 = require("./appPublisher");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
     context.subscriptions.push(vscode_1.commands.registerCommand('Kuksa', () => __awaiter(this, void 0, void 0, function* () {
@@ -24,6 +25,8 @@ function activate(context) {
             //showInputBox,
             appConfigGenerator: appConfigGenerator_1.appConfigGenerator,
             appGenerator: appGenerator_1.appGenerator,
+            appPublisher: appPublisher_1.appPublisher
+            //quickOpen,
         };
         const quickPick = vscode_1.window.createQuickPick();
         quickPick.items = Object.keys(options).map(label => ({ label }));
