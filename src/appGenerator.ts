@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { QuickPickItem, window, Disposable, CancellationToken, QuickInputButton, QuickInput, ExtensionContext, QuickInputButtons, Uri } from 'vscode';
+import { QuickPickItem, window, Disposable, CancellationToken, QuickInputButton, QuickInput, ExtensionContext, QuickInputButtons, Uri, OpenDialogOptions } from 'vscode';
 
 /**
  * A multi-step input using window.createQuickPick() and window.createInputBox().
@@ -64,12 +64,15 @@ export async function appGenerator(context: ExtensionContext) {
 			shouldResume: shouldResume
 		});
 		return (input: MultiStepInput) => generateImage(state);
+	//	return (input: MultiStepInput) => dialogExample;
 	}
+
 
 	async function generateImage(state: Partial<State>){
 		window.showInformationMessage("Building Image");
 		const arch = state.architecture;
 		const tag = state.tag;
+		
 		//const shell = require('shelljs');
 		//const projectName = shell.exec('basename "`pwd`"');
 		//shell.cd('$HOME'+'/'+projectName+'/'+'docker');

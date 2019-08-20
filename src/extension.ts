@@ -9,6 +9,7 @@
 import { window, commands, ExtensionContext } from 'vscode';
 import { appGenerator } from './appGenerator';
 import { appConfigGenerator } from './appConfigGenerator';
+import { appPublisher } from './appPublisher';
 //import { quickOpen } from './quickOpen';
 
 
@@ -23,6 +24,7 @@ export function activate(context: ExtensionContext) {
 			//showInputBox,
 			appConfigGenerator,
 			appGenerator,
+			appPublisher
 			//quickOpen,
 		};
 		const quickPick = window.createQuickPick();
