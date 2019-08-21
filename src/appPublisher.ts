@@ -59,21 +59,23 @@ export async function appPublisher(context: ExtensionContext) {
 
     }
     async function publishApp(state: Partial<State>){
-        const execLocation = context.asAbsolutePath("kuksa-publisher.py");
-        const {PythonShell} = require('python-shell');
+        
         if (state.publishOption === 'Create New Application') {
-            let options = {
-                args:[state.configFilePath,'-n']
-            };
-
-        PythonShell.run(execLocation, options, function (err: any, res: any[]) {
-            //window.showInformationMessage("res[0]");
-            console.log(res);  // 1
-        }); 
-
+			
+			const execLocation = context.asAbsolutePath("kuksa-publisher.py");
+			window.createTerminal('Kuksa Terminal').sendText('python3 ' + execLocation + ' ' + state.configFilePath+' -n');
+       // const {PythonShell} = require('python-shell');
+         //   let options = {
+           //     args:[state.configFilePath,'-n']
+			//};
+			//PythonShell.runString('echo "Hello"');
+		//await PythonShell.runString(execLocation + ' ' + state.configFilePath+' -n');
+       
         } 
 
         else if (state.publishOption === 'Update Existing Application') {
+			const execLocation = context.asAbsolutePath("kuksa-publisher.py");
+        const {PythonShell} = require('python-shell');
             let options = {
                 args:[state.configFilePath,'-r']
             };

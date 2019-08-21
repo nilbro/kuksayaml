@@ -4,6 +4,7 @@ import subprocess
 from datetime import datetime
 import requests
 from requests import Session, HTTPError
+import time
 
 def getAppIDinHawkbit(config):
      # get the app id from hawkbit which was created by the appstore
@@ -109,22 +110,23 @@ def __handle_error(response):
 
 # creates a new app category
 def createNewAppCategory(config ) :
-  
+   
    headers = {
        'Content-Type': 'application/json',
        'Accept': 'application/json',
        'Authorization': config['appstore']['auth'],
-   }
-
+   } 
+  # print(headers)
    data = '{\"name\" : "" }'
    data = json.loads(data)
    data['name'] = config['appstore']['category']
+  # time.sleep(0.01)
    response = requests.post('{}/api/1.0/appcategory'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
    if __handle_error(response) != 0:
       print("Okay! There is already the app category in the appstore but i am not able to get its ID :(, therefore I set appCategoryID = 1. ")
       return 1  #TODO fix this, check with appstore developers.
    response_str = response.content.decode("utf-8")
-   print(response_str)
+   print(type(response_str))
    response = json.loads(response_str)
    return response['id']
    print("Created new App-category in Appstore")
@@ -133,11 +135,12 @@ def createNewAppCategory(config ) :
 
 # Creates new app in appstore
 def createAppinAppstore(config_file) :
+    
     with open(config_file, mode='r') as __config_file:
        y=yaml.safe_load(__config_file)
        config = json.dumps(y)
        config = json.loads(config)
-       
+    
     # create the app category in appstore.
     catID = createNewAppCategory(config)
     print(catID)
@@ -211,6 +214,7 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--newapp', action='store_true', default=False, help="create new app inm appstore")
     parser.add_argument('-r', '--replace', action='store_true', default=False, help="Replace artifacts in Hawkbit")
     
+   
 
     args = parser.parse_args()
     newApp = args.newapp
