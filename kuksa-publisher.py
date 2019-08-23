@@ -10,9 +10,11 @@ def getAppIDinHawkbit(config):
      # get the app id from hawkbit which was created by the appstore
     http = Session()
     http.auth = (config['hawkbit']['user'], config['hawkbit']['password'])
+    
     app_response = http.get(
-        url='{}/rest/v1/softwaremodules?q=name%3D%3D{}%3Bversion%3D%3D{}'.format(config['hawkbit']['url'], config['docker']['name'], config['docker']['version'])
+        url='{}/rest/v1/softwaremodules?q=name%3D%3D{}%3Bversion%3D%3D{}'.format(config['hawkbit']['url'], config['docker']['name'], config['docker']['version'],verify=False)
     )
+    print('here')
     if __handle_error(app_response) != 0:
        exit(0)  
     str_resp = app_response.content.decode("utf-8")
@@ -100,7 +102,7 @@ def __handle_error(response):
     except HTTPError as error:
         #print(HTTPError)
         content = response.content
-        print(content)
+       # print(content)
         if content:
             content = json.loads(content.decode("utf-8"))
             error = content.get('message')
@@ -123,9 +125,11 @@ def createNewAppCategory(config ) :
    data = json.loads(data)
    data['name'] = config['appstore']['category']
   # time.sleep(0.01)
+   print(data)
    response = requests.post('{}/api/1.0/appcategory'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
+  # print(response)
    if __handle_error(response) != 0:
-      print("Okay! There is already the app category in the appstore but i am not able to get its ID :(, therefore I set appCategoryID = 1. ")
+      print("Okay! There is already the app category in the appstore but i am not able to get its IDApp already exists in the appstore. Therefore no new app created. :(, therefore I set appCategoryID = 1. ")
       return 1  #TODO fix this, check with appstore developers.
    response_str = response.content.decode("utf-8")
    print(type(response_str))
@@ -145,7 +149,7 @@ def createAppinAppstore(config_file) :
     
     # create the app category in appstore.
     catID = createNewAppCategory(config)
-    print(catID)
+   # print(catID)
     
     headers = {
        'Content-Type': 'application/json',
@@ -162,7 +166,7 @@ def createAppinAppstore(config_file) :
     data['publishdate'] = datetime.utcnow().isoformat()
     data['appcategory']['id'] = catID
     response = requests.post('{}/api/1.0/app'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
-    #print( __handle_error(response))
+    print( __handle_error(response))
     if __handle_error(response) != 0:
        print("App already exists in the appstore. Therefore no new app created.")
        return
@@ -189,7 +193,7 @@ def deleteExistingArtifacts(config_file) :
     
     http = Session()
     http.auth = (config['hawkbit']['user'], config['hawkbit']['password'])
-
+    
     appID = getAppIDinHawkbit(config)
     
     #get artifacts
@@ -227,6 +231,7 @@ if __name__ == '__main__':
        createAppinAppstore(args.config_file)
 
     if replace :
+       
        deleteExistingArtifacts(args.config_file)
     
     publish_app(args.config_file)

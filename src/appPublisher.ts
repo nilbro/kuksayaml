@@ -75,14 +75,7 @@ export async function appPublisher(context: ExtensionContext) {
 
         else if (state.publishOption === 'Update Existing Application') {
 			const execLocation = context.asAbsolutePath("kuksa-publisher.py");
-        const {PythonShell} = require('python-shell');
-            let options = {
-                args:[state.configFilePath,'-r']
-            };
-
-        PythonShell.run(execLocation, options, function (err: any, res: any[]) {
-            console.log(res[0]);  // 1
-        }); 
+			window.createTerminal('Kuksa Terminal').sendText('python3 ' + execLocation + ' ' + state.configFilePath+' -r');
 
         }
 

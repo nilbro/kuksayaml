@@ -24,7 +24,7 @@ export async function appGenerator(context: ExtensionContext) {
 		totalSteps: number;
 		architecture: string;
 		tag: string;
-		path: string;
+		dockerpath: string;
 	}
 
 	async function collectInputs() {
@@ -36,16 +36,16 @@ export async function appGenerator(context: ExtensionContext) {
 	const title = 'Generate App';
 
 	async function pickArchitecture(input: MultiStepInput, state: Partial<State>) {
-		const pick = await input.showQuickPick({
+		const pickArch = await input.showQuickPick({
 			title,
 			step: 1,
-			totalSteps: 2,
+			totalSteps: 3,
 			placeholder: 'Select Architecture',
 			items: architectureList,
 			//activeItem: typeof state.architecture !== 'string' ? state.architecture : undefined,
 			shouldResume: shouldResume
 		});
-		state.architecture = pick.label;
+		state.architecture = pickArch.label;
 		return (input: MultiStepInput) => inputTag(input, state);
 	}
 
@@ -57,16 +57,38 @@ export async function appGenerator(context: ExtensionContext) {
 		state.tag = await input.showInputBox({
 			title,
 			step: 2 ,
-			totalSteps: 2,
+			totalSteps: 3,
 			value: state.tag || '',
 			prompt: 'Provide a tag (optional)',
 			validate: validateNameIsUnique,
 			shouldResume: shouldResume
 		});
-		return (input: MultiStepInput) => generateImage(state);
-	//	return (input: MultiStepInput) => dialogExample;
+		//return (input: MultiStepInput) => generateImage(state);
+		return (input: MultiStepInput) => selectDockerImage(state);
 	}
 
+	async function selectDockerImage(state: Partial<State>){
+		window.showInformationMessage("Select Dockerfile");
+        const options: OpenDialogOptions = {
+            canSelectMany: false,
+            canSelectFiles: true,
+            canSelectFolders: false,
+            openLabel: 'Select',
+            filters: {
+               'All files': ['*']
+           }
+       };
+       
+      await  window.showOpenDialog(options).then(fileUri => {
+           if (fileUri && fileUri[0]) {
+               state.dockerpath = fileUri[0].fsPath;
+               //console.log(state.configFilePath);
+           }
+       });
+
+       return (input: MultiStepInput)=>generateImage(state); 
+		
+	}
 
 	async function generateImage(state: Partial<State>){
 		window.showInformationMessage("Building Image");
