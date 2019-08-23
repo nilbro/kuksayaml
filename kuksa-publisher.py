@@ -98,7 +98,9 @@ def __handle_error(response):
     try:
         response.raise_for_status()
     except HTTPError as error:
+        #print(HTTPError)
         content = response.content
+        print(content)
         if content:
             content = json.loads(content.decode("utf-8"))
             error = content.get('message')
@@ -144,6 +146,7 @@ def createAppinAppstore(config_file) :
     # create the app category in appstore.
     catID = createNewAppCategory(config)
     print(catID)
+    
     headers = {
        'Content-Type': 'application/json',
        'Accept': 'application/json',
@@ -159,6 +162,7 @@ def createAppinAppstore(config_file) :
     data['publishdate'] = datetime.utcnow().isoformat()
     data['appcategory']['id'] = catID
     response = requests.post('{}/api/1.0/app'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
+    #print( __handle_error(response))
     if __handle_error(response) != 0:
        print("App already exists in the appstore. Therefore no new app created.")
        return

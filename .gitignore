@@ -1,3 +1,4 @@
 out
 node_modules
-/kuksa-0.0.1.vsix
+/*.vsix*
+/*.tar*
