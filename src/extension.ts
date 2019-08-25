@@ -10,6 +10,7 @@ import { window, commands, ExtensionContext } from 'vscode';
 import { appGenerator } from './appGenerator';
 import { appConfigGenerator } from './appConfigGenerator';
 import { appPublisher } from './appPublisher';
+import {kuksaTreeGenerator} from './kuksaTreeGenerator';
 //import { quickOpen } from './quickOpen';
 
 
@@ -39,4 +40,14 @@ export function activate(context: ExtensionContext) {
 		quickPick.onDidHide(() => quickPick.dispose());
 		quickPick.show();
 	}));
+
+	context.subscriptions.push(commands.registerCommand('kuksa.createTree', _ => {
+		kuksaTreeGenerator(context)
+			.catch(console.error);
+	}));
+	
+	context.subscriptions.push(commands.registerCommand('kuksa.createYaml', _ => {
+		window.showInformationMessage("Works too!");
+	}));
+	
 }

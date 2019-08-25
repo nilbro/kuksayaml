@@ -16,6 +16,7 @@ const vscode_1 = require("vscode");
 const appGenerator_1 = require("./appGenerator");
 const appConfigGenerator_1 = require("./appConfigGenerator");
 const appPublisher_1 = require("./appPublisher");
+const kuksaTreeGenerator_1 = require("./kuksaTreeGenerator");
 //import { quickOpen } from './quickOpen';
 function activate(context) {
     context.subscriptions.push(vscode_1.commands.registerCommand('Kuksa', () => __awaiter(this, void 0, void 0, function* () {
@@ -40,6 +41,13 @@ function activate(context) {
         quickPick.onDidHide(() => quickPick.dispose());
         quickPick.show();
     })));
+    context.subscriptions.push(vscode_1.commands.registerCommand('kuksa.createTree', _ => {
+        kuksaTreeGenerator_1.kuksaTreeGenerator(context)
+            .catch(console.error);
+    }));
+    context.subscriptions.push(vscode_1.commands.registerCommand('kuksa.createYaml', _ => {
+        vscode_1.window.showInformationMessage("Works too!");
+    }));
 }
 exports.activate = activate;
 //# sourceMappingURL=extension.js.map

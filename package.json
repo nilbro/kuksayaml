@@ -19,17 +19,27 @@
       "editor/title": [
         {
           "command": "Kuksa"
-        }
+        },
+      {
+        "command":"kuksa.createTree"
+      },
+      {
+        "command": "kuksa.createYaml"
+      }
       ]
     },
     "commands": [
       {
         "command": "Kuksa",
-        "title": "Kuksa",
-        "icon": {
-          "light": "kuksa_icon.png",
-          "dark": "kuksa_icon.png"
-        }
+        "title": "Kuksa"
+      },
+      {
+        "command": "kuksa.createTree",
+        "title": "Setup Kuksa Workspace"
+      },
+      {
+        "command": "kuksa.createYaml",
+        "title": "Create Kuksa AppStore Configuration"
       }
     ]
   },

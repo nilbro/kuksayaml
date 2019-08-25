@@ -125,7 +125,7 @@ def createNewAppCategory(config ) :
    data = json.loads(data)
    data['name'] = config['appstore']['category']
   # time.sleep(0.01)
-   print(data)
+  # print(data)
    response = requests.post('{}/api/1.0/appcategory'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
   # print(response)
    if __handle_error(response) != 0:

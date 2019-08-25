@@ -161,7 +161,7 @@ interface InputBoxParameters {
 	shouldResume: () => Thenable<boolean>;
 }
 
-class MultiStepInput {
+export class MultiStepInput {
 
 	static async run<T>(start: InputStep) {
 		const input = new MultiStepInput();

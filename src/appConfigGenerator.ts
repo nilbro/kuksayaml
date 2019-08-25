@@ -40,7 +40,7 @@ export async function appConfigGenerator(context: ExtensionContext) {
 	async function inputImage(input: MultiStepInput, state: Partial<State>) {
 		//const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
 		// TODO: Remember current value when navigating back.
-		await createTree();
+		//await createTree();
 		window.showInformationMessage('Starting with Docker Configuration');
 		yamlGenerator();
 		await input.showInputBox({
@@ -242,10 +242,6 @@ export async function appConfigGenerator(context: ExtensionContext) {
 		shell.touch(projectName + '/' +'kuksa.yaml');
 		shell.cp(context.asAbsolutePath("build.sh"),projectName + '/' + 'docker'+'/'+'build.sh');
 		shell.sed('-i','kuksa',projectName,projectName + '/' + 'docker'+'/'+'build.sh');
-		
-
-
-
 	}
 
 	function shouldResume() {
