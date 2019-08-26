@@ -46,7 +46,16 @@ function activate(context) {
             .catch(console.error);
     }));
     context.subscriptions.push(vscode_1.commands.registerCommand('kuksa.createYaml', _ => {
-        vscode_1.window.showInformationMessage("Works too!");
+        appConfigGenerator_1.appConfigGenerator(context)
+            .catch(console.error);
+    }));
+    context.subscriptions.push(vscode_1.commands.registerCommand('kuksa.generateDockerFile', _ => {
+        appGenerator_1.appGenerator(context)
+            .catch(console.error);
+    }));
+    context.subscriptions.push(vscode_1.commands.registerCommand('kuksa.publishApp', _ => {
+        appPublisher_1.appPublisher(context)
+            .catch(console.error);
     }));
 }
 exports.activate = activate;

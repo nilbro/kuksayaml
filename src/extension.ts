@@ -47,7 +47,17 @@ export function activate(context: ExtensionContext) {
 	}));
 	
 	context.subscriptions.push(commands.registerCommand('kuksa.createYaml', _ => {
-		window.showInformationMessage("Works too!");
+		appConfigGenerator(context)
+			.catch(console.error);
 	}));
 	
+	context.subscriptions.push(commands.registerCommand('kuksa.generateDockerFile', _ => {
+		appGenerator(context)
+			.catch(console.error);
+	}));
+
+	context.subscriptions.push(commands.registerCommand('kuksa.publishApp', _ => {
+		appPublisher(context)
+			.catch(console.error);
+	}));
 }

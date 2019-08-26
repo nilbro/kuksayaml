@@ -25,6 +25,12 @@
       },
       {
         "command": "kuksa.createYaml"
+      },
+      {
+        "command": "kuksa.generateDockerFile"
+      },
+      {
+        "command": "kuksa.publishApp"
       }
       ]
     },
@@ -35,12 +41,21 @@
       },
       {
         "command": "kuksa.createTree",
-        "title": "Setup Kuksa Workspace"
+        "title": "Kuksa: Setup Workspace"
       },
       {
         "command": "kuksa.createYaml",
-        "title": "Create Kuksa AppStore Configuration"
+        "title": "Kuksa: Create Configuration File"
+      },
+      {
+        "command": "kuksa.generateDockerFile",
+        "title": "Kuksa: Generate Docker Image"
+      },
+      {
+        "command": "kuksa.publishApp",
+        "title": "Kuksa: Publish to AppStore"
       }
+
     ]
   },
   "scripts": {
