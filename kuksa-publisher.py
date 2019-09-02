@@ -1,20 +1,67 @@
+#!/usr/bin/env python
+
+#  Copyright (c) 2019 Eclipse KUKSA project
+#
+#  This program and the accompanying materials are made available under the
+#  terms of the Eclipse Public License 2.0 which is available at
+#  http://www.eclipse.org/legal/epl-2.0
+#
+#  SPDX-License-Identifier: EPL-2.0
+#
+#  Contributors: Robert Bosch GmbH
+
 import json,yaml
 import os
 import subprocess
 from datetime import datetime
 import requests
 from requests import Session, HTTPError
-import time
+
+def manageTarget(config_file):
+    with open(config_file, mode='r') as __config_file:
+       y=yaml.safe_load(__config_file)
+       config = json.dumps(y)
+       config = json.loads(config)
+
+    http = Session()
+    http.auth = (config['hawkbit']['user'], config['hawkbit']['password'])
+    headers = {
+        "Content-Type": "application/json"
+    }  
+    response_target = http.get(url='{}/rest/v1/targets/{}'.format(config['hawkbit']['url'], config['hawkbit']['target']))
+    
+    if __handle_error(response_target) != 0:
+        print("A new target will be created...")
+        payload = [{
+            "controllerId": config['hawkbit']['target'],
+            "name": config['hawkbit']['target'],
+            "description": config['hawkbit']['target_user']
+        }]
+
+        reponse_target = http.post(url='{}/rest/v1/targets'.format(config['hawkbit']['url']), headers=headers, data=json.dumps(payload))
+        print(reponse_target.text)
+        
+    else:
+        print("Target already exists. User for target will be updated...")
+        content = response_target.content
+        if content:
+            content = json.loads(content.decode("utf-8"))
+            description_old = content.get('description')
+            description_old = [x.strip() for x in description_old.split(',')]
+            description_update = config['hawkbit']['target_user']
+            description_update = [x.strip() for x in description_update.split(',')]
+            description_new = list(set(description_old + description_update))
+            content['description'] = ", ".join(description_new)
+            print(content)
+            response_target = http.put(url='{}/rest/v1/targets/{}'.format(config['hawkbit']['url'], config['hawkbit']['target']), headers=headers, data=json.dumps(content))
 
 def getAppIDinHawkbit(config):
      # get the app id from hawkbit which was created by the appstore
     http = Session()
     http.auth = (config['hawkbit']['user'], config['hawkbit']['password'])
-    
     app_response = http.get(
-        url='{}/rest/v1/softwaremodules?q=name%3D%3D{}%3Bversion%3D%3D{}'.format(config['hawkbit']['url'], config['docker']['name'], config['docker']['version'],verify=False)
+        url='{}/rest/v1/softwaremodules?q=name%3D%3D{}%3Bversion%3D%3D{}'.format(config['hawkbit']['url'], config['docker']['name'], config['docker']['version'])
     )
-    print('here')
     if __handle_error(app_response) != 0:
        exit(0)  
     str_resp = app_response.content.decode("utf-8")
@@ -100,9 +147,7 @@ def __handle_error(response):
     try:
         response.raise_for_status()
     except HTTPError as error:
-        #print(HTTPError)
         content = response.content
-       # print(content)
         if content:
             content = json.loads(content.decode("utf-8"))
             error = content.get('message')
@@ -114,25 +159,22 @@ def __handle_error(response):
 
 # creates a new app category
 def createNewAppCategory(config ) :
-   
+  
    headers = {
        'Content-Type': 'application/json',
        'Accept': 'application/json',
        'Authorization': config['appstore']['auth'],
-   } 
-  # print(headers)
+   }
+
    data = '{\"name\" : "" }'
    data = json.loads(data)
    data['name'] = config['appstore']['category']
-  # time.sleep(0.01)
-  # print(data)
    response = requests.post('{}/api/1.0/appcategory'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
-  # print(response)
    if __handle_error(response) != 0:
-      print("Okay! There is already the app category in the appstore but i am not able to get its IDApp already exists in the appstore. Therefore no new app created. :(, therefore I set appCategoryID = 1. ")
+      print("Okay! There is already the app category in the appstore but i am not able to get its ID :(, therefore I set appCategoryID = 1. ")
       return 1  #TODO fix this, check with appstore developers.
    response_str = response.content.decode("utf-8")
-   print(type(response_str))
+   print(response_str)
    response = json.loads(response_str)
    return response['id']
    print("Created new App-category in Appstore")
@@ -141,16 +183,14 @@ def createNewAppCategory(config ) :
 
 # Creates new app in appstore
 def createAppinAppstore(config_file) :
-    
     with open(config_file, mode='r') as __config_file:
        y=yaml.safe_load(__config_file)
        config = json.dumps(y)
        config = json.loads(config)
-    
+       
     # create the app category in appstore.
     catID = createNewAppCategory(config)
-   # print(catID)
-    
+    print(catID)
     headers = {
        'Content-Type': 'application/json',
        'Accept': 'application/json',
@@ -166,7 +206,6 @@ def createAppinAppstore(config_file) :
     data['publishdate'] = datetime.utcnow().isoformat()
     data['appcategory']['id'] = catID
     response = requests.post('{}/api/1.0/app'.format(config['appstore']['url']), headers=headers, data=json.dumps(data))
-    print( __handle_error(response))
     if __handle_error(response) != 0:
        print("App already exists in the appstore. Therefore no new app created.")
        return
@@ -193,7 +232,7 @@ def deleteExistingArtifacts(config_file) :
     
     http = Session()
     http.auth = (config['hawkbit']['user'], config['hawkbit']['password'])
-    
+
     appID = getAppIDinHawkbit(config)
     
     #get artifacts
@@ -222,16 +261,15 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--newapp', action='store_true', default=False, help="create new app inm appstore")
     parser.add_argument('-r', '--replace', action='store_true', default=False, help="Replace artifacts in Hawkbit")
     
-   
 
     args = parser.parse_args()
     newApp = args.newapp
     replace = args.replace
-    if newApp :
-       createAppinAppstore(args.config_file)
+    #if newApp :
+     #  createAppinAppstore(args.config_file)
 
-    if replace :
-       
-       deleteExistingArtifacts(args.config_file)
+#    if replace :
+ #      deleteExistingArtifacts(args.config_file)
     
-    publish_app(args.config_file)
+    #publish_app(args.config_file)
+    manageTarget(args.config_file)

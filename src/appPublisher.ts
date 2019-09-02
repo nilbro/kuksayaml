@@ -65,29 +65,18 @@ export async function appPublisher(context: ExtensionContext) {
 			
 			const execLocation = context.asAbsolutePath("kuksa-publisher.py");
 			window.createTerminal('Kuksa Terminal').sendText('python3 ' + execLocation + ' ' + state.configFilePath+' -n');
-       // const {PythonShell} = require('python-shell');
-         //   let options = {
-           //     args:[state.configFilePath,'-n']
-			//};
-			//PythonShell.runString('echo "Hello"');
-		//await PythonShell.runString(execLocation + ' ' + state.configFilePath+' -n');
-       
+
         } 
 
         else if (state.publishOption === 'Update Existing Application') {
 			const execLocation = context.asAbsolutePath("kuksa-publisher.py");
 			window.createTerminal('Kuksa Terminal').sendText('python3 ' + execLocation + ' ' + state.configFilePath+' -r');
-
         }
 
         else {
             window.showErrorMessage("No such option exists");
         }
-
-		
     }
-
-
 
 
     function shouldResume() {

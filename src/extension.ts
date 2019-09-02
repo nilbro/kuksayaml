@@ -11,11 +11,12 @@ import { appGenerator } from './appGenerator';
 import { appConfigGenerator } from './appConfigGenerator';
 import { appPublisher } from './appPublisher';
 import {kuksaTreeGenerator} from './kuksaTreeGenerator';
+import { yamlGeneratorForm } from './yamlGeneratorForm';
 //import { quickOpen } from './quickOpen';
 
 
 export function activate(context: ExtensionContext) {
-
+/*
 	context.subscriptions.push(commands.registerCommand('Kuksa', async () => {
 		
 		//var projectList = [];
@@ -40,7 +41,7 @@ export function activate(context: ExtensionContext) {
 		quickPick.onDidHide(() => quickPick.dispose());
 		quickPick.show();
 	}));
-
+*/
 	context.subscriptions.push(commands.registerCommand('kuksa.createTree', _ => {
 		kuksaTreeGenerator(context)
 			.catch(console.error);
@@ -54,6 +55,10 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(commands.registerCommand('kuksa.generateDockerFile', _ => {
 		appGenerator(context)
 			.catch(console.error);
+	}));
+
+	context.subscriptions.push(commands.registerCommand('kuksa.createYamlForm', _ => {
+		yamlGeneratorForm(context);
 	}));
 
 	context.subscriptions.push(commands.registerCommand('kuksa.publishApp', _ => {

@@ -1,7 +1,7 @@
 {
   "name": "kuksa",
   "displayName": "Kuksa",
-  "description": "Kuksa Yaml Generator",
+  "description": "Kuksa ",
   "publisher": "appstacle-kuksa",
   "version": "0.0.1",
   "engines": {
@@ -17,9 +17,6 @@
   "contributes": {
     "menus": {
       "editor/title": [
-        {
-          "command": "Kuksa"
-        },
       {
         "command":"kuksa.createTree"
       },
@@ -31,14 +28,13 @@
       },
       {
         "command": "kuksa.publishApp"
+      },
+      {
+        "command": "kuksa.createYamlForm"
       }
       ]
     },
     "commands": [
-      {
-        "command": "Kuksa",
-        "title": "Kuksa"
-      },
       {
         "command": "kuksa.createTree",
         "title": "Kuksa: Setup Workspace"
@@ -54,6 +50,10 @@
       {
         "command": "kuksa.publishApp",
         "title": "Kuksa: Publish to AppStore"
+      },
+      {
+        "command": "kuksa.createYamlForm",
+        "title": "Kuksa: Create Configuration File(Form)"
       }
 
     ]

@@ -59,7 +59,7 @@ export async function appGenerator(context: ExtensionContext) {
 			step: 2 ,
 			totalSteps: 3,
 			value: state.tag || '',
-			prompt: 'Provide a tag (optional)',
+			prompt: 'Provide a tag',
 			validate: validateNameIsUnique,
 			shouldResume: shouldResume
 		});
@@ -94,14 +94,7 @@ export async function appGenerator(context: ExtensionContext) {
 		window.showInformationMessage("Building Image");
 		const arch = state.architecture;
 		const tag = state.tag;
-		
-		//const shell = require('shelljs');
-		//const projectName = shell.exec('basename "`pwd`"');
-		//shell.cd('$HOME'+'/'+projectName+'/'+'docker');
 		window.createTerminal('kuksaTerminal').sendText('cd docker;sh build.sh '+arch+' '+tag);
-		//window.createTerminal(*'kuksaTerminal').sendText('cd docker');
-		//shell.cd('$HOME'+'/'+projectName+'/'+'docker');
-		//shell.sed('-i','kuksa',projectName,projectName + '/' + 'docker'+'/'+'build.sh');
 	}
 
 
